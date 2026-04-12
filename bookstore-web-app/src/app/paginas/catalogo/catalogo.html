@@ -1,1 +1,57 @@
-<p>catalogo works!</p>
+<div class="catalogo-pagina">
+  <div class="catalogo-header">
+    <h1>Catálogo de Mangas</h1>
+    <p>{{ productosFiltrados.length }} títulos disponibles</p>
+  </div>
+
+  <div class="catalogo-contenido">
+    <aside class="sidebar">
+      <h3>Categorías</h3>
+      <ul class="genero-lista">
+        <li
+          *ngFor="let genero of generos"
+          (click)="filtrarPorGenero(genero)"
+          [ngClass]="{'activo': generoSeleccionado === genero}"
+          class="genero-item">
+          {{ genero }}
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Estado de carga -->
+    <div *ngIf="cargando" class="estado-msg">Cargando productos...</div>
+    <div *ngIf="error" class="estado-msg error">Error al cargar productos.</div>
+
+    <div class="manga-grid" *ngIf="!cargando && !error">
+      <div class="manga-card" *ngFor="let producto of productosFiltrados">
+        <div class="card-cover">
+          <img
+            [src]="producto.imagen"
+            [alt]="producto.nombre"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+          />
+          <div class="card-imagen">IMG</div>
+        </div>
+        <div class="card-info">
+          <span class="card-genero" [ngClass]="'genero-' + (producto.categoria || '').toLowerCase()">
+            {{ producto.categoria }}
+          </span>
+          <h3>{{ producto.nombre }}</h3>
+          <p>{{ producto.editorial }} · Vol. {{ producto.tomo }}</p>
+          <span class="precio">{{ producto.precio | currency:'MXN':'symbol':'1.0-0' }}</span>
+          <div class="card-footer">
+            <a [routerLink]="['/detalles', producto.id]" class="btn-small">Ver Más</a>
+            <button
+              class="btn-small btn-carrito"
+              (click)="agregarAlCarrito(producto)"
+              [disabled]="producto.disponible === 0"
+              [ngClass]="{'agregado': agregadoId === producto.id}">
+              {{ agregadoId === producto.id ? 'Agregado' : 'Agregar' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

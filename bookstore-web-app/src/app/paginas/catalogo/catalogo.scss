@@ -1,0 +1,200 @@
+.catalogo-pagina{
+  background-color: #0a0a19;
+  color: white;
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.catalogo-header{
+    margin-bottom: 2rem;
+
+  h1{
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, rgb(170,120,255));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.3rem;
+  }
+
+  p{
+    color: rgb(90,200,255);
+    font-size: 0.95rem;
+  }
+}
+
+.catalogo-contenido{
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.sidebar{
+  width: 200px;
+  flex-shrink: 0;
+  background: rgba(20,60,120,0.2);
+  border: 1px solid rgba(90,200,255,0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  position: sticky;
+  top: 80px;
+
+  h3{
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(90,200,255,0.2);
+    padding-bottom: 0.5rem;
+  }
+}
+
+.genero-lista{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.genero-item{
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #b2ceff;
+  transition: all 0.2s;
+
+  &:hover{
+    background: rgba(90,200,255,0.1);
+    color: white;
+  }
+
+  &.activo{
+    background: rgba(90,200,255,0.15);
+    color: rgb(90,200,255);
+    font-weight: 600;
+  }
+}
+
+.manga-grid{
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.manga-card{
+  background: rgba(20,60,120,0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(90,200,255,0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover{
+    transform: translateY(-6px);
+    border-color: rgba(170,120,255,0.6);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+}
+
+.card-cover{
+  height: 220px;
+  background: rgb(60,20,110);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.card-imagen{
+  display: none;
+  font-size: 3rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.card-info{
+  padding: 0.8rem;
+}
+
+.card-genero{
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  background: rgba(170,120,255,0.2);
+  color: rgb(170,120,255);
+
+  &.genero-shonen { background: rgba(90,200,255,0.15); color: rgb(90,200,255); }
+  &.genero-seinen { background: rgba(255,100,100,0.15); color: rgb(255,120,120); }
+  &.genero-thriller { background: rgba(255,180,50,0.15); color: rgb(255,180,50); }
+}
+
+.manga-card h3{
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.manga-card p{
+  font-size: 0.8rem;
+  color: #b2ceff;
+  margin-bottom: 0.5rem;
+}
+
+.precio{
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(90,200,255);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.card-footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.btn-small{
+  background: rgba(170,120,255,0.2);
+  color: rgb(170,120,255);
+  border: 1px solid rgba(170,120,255,0.3);
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover{ background: rgba(170,120,255,0.35); }
+}
+
+.btn-carrito{
+  &.agregado{
+    background: rgba(90,200,100,0.2);
+    color: rgb(90,200,100);
+    border-color: rgba(90,200,100,0.3);
+  }
+  &:disabled{
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+  }
+}
