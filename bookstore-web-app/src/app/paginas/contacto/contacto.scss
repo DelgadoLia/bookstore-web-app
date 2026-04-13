@@ -145,3 +145,72 @@
     cursor: not-allowed;
   }
 }
+.comentarios-seccion {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: rgba(20,60,120,0.15);
+  border: 1px solid rgba(90,200,255,0.2);
+  border-radius: 20px;
+}
+
+.comentarios-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, rgb(170,120,255));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    color: #b2ceff;
+    font-size: 0.9rem;
+  }
+}
+
+.comentarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.comentario-card {
+  background: rgba(20,60,120,0.3);
+  border: 1px solid rgba(90,200,255,0.2);
+  border-radius: 15px;
+  padding: 1.2rem;
+  transition: transform 0.2s, border-color 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgb(90,200,255);
+  }
+}
+
+.comentario-header {
+  margin-bottom: 0.6rem;
+
+  h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .comentario-asunto {
+    font-size: 0.8rem;
+    color: rgb(90,200,255);
+  }
+}
+
+.comentario-mensaje {
+  font-style: italic;
+  color: #dbe9ff;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}

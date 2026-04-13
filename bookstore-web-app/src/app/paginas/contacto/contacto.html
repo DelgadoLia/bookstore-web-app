@@ -47,8 +47,8 @@
         <input
             type="email"
             id="email"
-            name="email"
-            [(ngModel)]="formulario.email"
+            name="correo"
+            [(ngModel)]="formulario.correo"
             required
             email
             #email="ngModel"
@@ -103,6 +103,27 @@
     </button>
 
     </form>
+
+</div>
+<div class="comentarios-seccion" *ngIf="mensajesAleatorios.length > 0">
+
+    <div class="comentarios-header">
+        <h2>Nuestros clientes han hablado</h2>
+        <p>Descubre lo que opinan sobre su experiencia con nosotros</p>
+    </div>
+
+    <div class="comentarios-grid">
+        <div class="comentario-card" *ngFor="let comentario of mensajesAleatorios">
+            <div class="comentario-header">
+                <h4>{{ comentario.nombre }}</h4>
+                <span class="comentario-asunto">{{ comentario.asunto }}</span>
+            </div>
+
+            <p class="comentario-mensaje">
+                “{{ comentario.mensaje }}”
+            </p>
+        </div>
+    </div>
 
 </div>
 

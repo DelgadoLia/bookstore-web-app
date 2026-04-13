@@ -11,6 +11,8 @@ app.use('/uploads', express.static('uploads'));
 
 const productoRutas = require('./routes/db.routes');
 app.use('/api/productos', productoRutas);
+const mensajesRoutes = require('./routes/mensaje.routes');
+app.use('/api/mensajes', mensajesRoutes);
 
 app.get('/', (req, res) => {
     res.json({mensaje: 'Servidor funcionando'});
