@@ -1,1 +1,82 @@
-<p>home works!</p>
+<div class="home">
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Sumérgete en <br> mundos de tinta</h1>
+      <p>Más de 2000 tomos originales, ediciones limitadas y lo último del manga japonés.</p>
+      <div class="hero-numeros">
+        <div class="numero-item">
+          <span class="valores">+2,500</span>
+          <span class="numero-label">Mangas</span>
+        </div>
+        <div class="numero-item">
+          <span class="valores">+120</span>
+          <span class="numero-label">Autores</span>
+        </div>
+        <div class="numero-item">
+          <span class="valores">4.9</span>
+          <span class="numero-label">Valoración</span>
+        </div>
+      </div>
+      <div class="hero-botones">
+        <a routerLink="/catalogo" class="btn-primary">Explorar catálogo</a>
+        <a routerLink="/contacto" class="btn-ghost">Contáctanos</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+  <div class="hero-card">
+    <div class="hero-card-portada">
+      <img
+        *ngIf="heroProducto"
+        [src]="heroProducto.imagen"
+        [alt]="heroProducto.nombre"
+        style="width:100%; height:100%; object-fit:cover; border-radius: inherit;"
+      />
+    </div>
+    <div class="hero-card-tag">Edición limitada</div>
+  </div>
+</div>
+  </section>
+
+  <section class="destacados">
+    <h2 class="seccion-titulo">Títulos destacados</h2>
+    <p class="seccion-sub">Los más populares de nuestra colección</p>
+
+    <div class="manga-grid">
+      <div class="manga-card" *ngFor="let producto of destacados">
+        <div class="card-cover">
+          <img
+            [src]="producto.imagen"
+            [alt]="producto.nombre"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+          />
+          <div class="card-imagen"></div>
+        </div>
+        <div class="card-info">
+          <span class="card-genero" [ngClass]="'genero-' + (producto.categoria || '').toLowerCase()">
+            {{ producto.categoria }}
+          </span>
+          <h3>{{ producto.nombre }}</h3>
+          <p>{{ producto.editorial }} · Vol. {{ producto.tomo }}</p>
+          <span class="precio">{{ producto.precio | currency:'MXN':'symbol':'1.0-0' }}</span>
+          <div class="card-footer">
+            <a [routerLink]="['/detalles', producto.id]" class="btn-small">Ver Más</a>
+            <button
+              class="btn-small btn-carrito"
+              (click)="agregarAlCarrito(producto)"
+              [disabled]="producto.disponible === 0"
+              [ngClass]="{'agregado': agregadoId === producto.id}">
+              {{ agregadoId === producto.id ? 'Agregado' : 'Agregar' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ver-todos">
+      <a routerLink="/catalogo" class="btn-primary">Ver todos los mangas</a>
+    </div>
+  </section>
+  
+
+</div>

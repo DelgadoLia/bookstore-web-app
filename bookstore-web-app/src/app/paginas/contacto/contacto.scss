@@ -1,0 +1,147 @@
+.contacto-pagina{
+  background-color: #0a0a19;
+  color: white;
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contacto-header{
+  margin-bottom: 2.5rem;
+
+  h1{
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, rgb(170,120,255));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.3rem;
+  }
+
+  p{
+    color: #b2ceff;
+    font-size: 0.95rem;
+  }
+}
+
+.contacto-contenido{
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.contacto-info{
+  flex: 1;
+  min-width: 220px;
+  background: rgba(20,60,120,0.2);
+  border: 1px solid rgba(90,200,255,0.2);
+  border-radius: 20px;
+  padding: 2rem;
+
+  h3{
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: rgb(90,200,255);
+  }
+}
+
+.info-item{
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+
+  strong{
+    display: block;
+    font-size: 0.9rem;
+    color: white;
+    margin-bottom: 0.2rem;
+  }
+
+  p{
+    font-size: 0.85rem;
+    color: #b2ceff;
+    margin: 0;
+  }
+}
+
+.contacto-form{
+  flex: 2;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-grupo{
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label{
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #b2ceff;
+  }
+
+  input, textarea{
+    background: rgba(20,60,120,0.3);
+    border: 1px solid rgba(90,200,255,0.2);
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    color: white;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    outline: none;
+    resize: none;
+
+    &::placeholder{ color: #4a5a7a; }
+
+    &:focus{
+      border-color: rgb(90,200,255);
+    }
+
+    &.input-error{
+      border-color: rgb(255,100,100);
+    }
+  }
+}
+
+.error{
+  font-size: 0.8rem;
+  color: rgb(255,100,100);
+}
+
+.form-enviado{
+  background: rgba(90,200,100,0.15);
+  border: 1px solid rgba(90,200,100,0.3);
+  color: rgb(90,200,100);
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.btn-enviar{
+  background: rgb(90,200,255);
+  color: #0a0a19;
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: fit-content;
+
+  &:hover{ background: rgb(60,170,230); }
+
+  &:disabled{
+    background: #333;
+    color: #666;
+    cursor: not-allowed;
+  }
+}

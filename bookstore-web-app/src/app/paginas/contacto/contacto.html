@@ -1,1 +1,108 @@
-<p>contacto works!</p>
+<div class="contacto-pagina">
+    <div class="contacto-header">
+        <h1>Contacto</h1>
+        <p>¿Tienes alguna pregunta o sugerencia? Nos encantaría ayudarte.</p>
+    </div>
+
+    <div class="contacto-contenido">
+        <div class="contacto-info">
+            <h3>Información de contacto</h3>
+            <div class="info-item">
+                <strong>Dirección</strong>
+                <p>Aguascalientes, México</p>
+            </div>
+            <div class="info-item">
+                <strong>Teléfono</strong>
+                <p>+52 449 123 4567</p>
+            </div>
+            <div class="info-item">
+                <strong>Email</strong>
+                <p>info@SixEyes-Melancolicos.com</p>
+            </div>
+            <div class="info-item">
+                <strong>Horarios</strong>
+                <p>Lunes a viernes: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+    </div>
+
+    <form class="contacto-form" #contactoForm="ngForm" (ngSubmit)="onSubmit(contactoForm)">
+
+    <div class="form-grupo">
+        <label for="nombre">Nombre completo</label>
+        <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            [(ngModel)]="formulario.nombre"
+            required
+            #nombre="ngModel"
+            [ngClass]="{'input-error': nombre.invalid && nombre.touched}"
+            placeholder="Tu nombre"
+        />
+    </div>
+
+    <div class="form-grupo">
+        <label for="email">Correo electrónico</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="formulario.email"
+            required
+            email
+            #email="ngModel"
+            [ngClass]="{'input-error': email.invalid && email.touched}"
+            placeholder="tucorreo@ejemplo.com"
+        />
+        <span class="error" *ngIf="email.invalid && email.touched">
+            Ingresa un correo válido
+        </span>
+    </div>
+
+    <div class="form-grupo">
+        <label for="asunto">Asunto</label>
+        <input
+            type="text"
+            id="asunto"
+            name="asunto"
+            [(ngModel)]="formulario.asunto"
+            required
+            #asunto="ngModel"
+            [ngClass]="{'input-error': asunto.invalid && asunto.touched}"
+            placeholder="¿En qué podemos ayudarte?"
+        />
+        <span class="error" *ngIf="asunto.invalid && asunto.touched">
+            El asunto es requerido
+        </span>
+    </div>
+
+    <div class="form-grupo">
+        <label for="mensaje">Mensaje</label>
+        <textarea
+            id="mensaje"
+            name="mensaje"
+            [(ngModel)]="formulario.mensaje"
+            required
+            #mensaje="ngModel"
+            [ngClass]="{'input-error': mensaje.invalid && mensaje.touched}"
+            placeholder="Escribe tu mensaje aquí..."
+            rows="5"
+        ></textarea>
+        <span class="error" *ngIf="mensaje.invalid && mensaje.touched">
+            El mensaje es requerido
+        </span>
+    </div>
+
+    <div class="form-enviado" *ngIf="enviado">
+        ¡Mensaje enviado correctamente! Te contactaremos pronto.
+    </div>
+
+    <button type="submit" class="btn-enviar" [disabled]="contactoForm.invalid || enviando">
+        {{ enviando ? 'Enviando...' : 'Enviar mensaje' }}
+    </button>
+
+    </form>
+
+</div>
+

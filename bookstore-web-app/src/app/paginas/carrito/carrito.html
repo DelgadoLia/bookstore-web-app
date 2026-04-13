@@ -1,1 +1,54 @@
-<p>carrito works!</p>
+<div class="carrito-pagina">
+    <div class="carrito-header">
+        <h1>Mi carrito</h1>
+        <a routerLink="/" class="btn-volver">← Seguir comprando</a>
+    </div>
+    <div class="carrrito-contenido" *ngIf="carritoService.items().length>0; else vacio">
+        <div class="carrito-lista">
+            <div class="carrito-item" *ngFor="let item of carritoService.items()">
+                <div class="item-imagen">
+                    <img
+                        [src]="item.producto.imagen"
+                        [alt]="item.producto.nombre"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+                    />
+                    <div class="imagen-fallback">IMG</div>
+                </div>
+                <div class="carrito-info">
+                    <h3>{{ item.producto.nombre }}</h3>
+                    <p>{{ item.producto.editorial }}</p>
+                    <span class="item-genero">{{ item.producto.categoria }}</span>
+                </div>
+                <div class="item-cantidad">
+                    <span>Cantidad: <strong>{{ item.cantidad }}</strong></span>
+                </div>
+                <div class="item-precio">
+                    {{ item.producto.precio * item.cantidad | currency:'MXN':'symbol':'1.0-0' }}
+                </div>
+                <button class="btn-quitar" (click)="carritoService.quitar(item.producto.id)">
+                    X
+                </button>
+            </div>
+        </div>
+
+        <div class="carrito-resumen">
+            <h2>Resumen de compra</h2>
+            <div class="resumen-linea">
+                <span>Productos ({{ carritoService.cantidadTotal() }})</span>
+                <span>{{ carritoService.total() | currency:'MXN':'symbol':'1.0-0' }}</span>
+            </div>
+            <div class="resumen-linea resumen-total">
+                <span><strong>Total</strong></span>
+                <span><strong>{{ carritoService.total() | currency:'MXN':'symbol':'1.0-0' }}</strong></span>
+            </div>
+            <button class="btn-pagar">Pagar</button>
+            <button class="btn-limpiar" (click)="carritoService.limpiar()">Vaciar carrito</button>
+        </div>
+    </div>
+    <ng-template #vacio>
+        <div class="carrito-vacio">
+            <p>Tu carrito está vacío</p>
+            <a routerLink="/catalogo" class="btn-primary">Ver catálogo</a>
+        </div>
+    </ng-template>
+</div>
