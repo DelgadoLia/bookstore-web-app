@@ -1,27 +1,25 @@
 <div class="agregar-page">
-
   <div class="agregar-header">
     <h1>Agregar Manga</h1>
     <p>Completa todos los campos para agregar un nuevo título al catálogo.</p>
   </div>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="agregar-form">
-
     <div class="form-grid">
 
       <div class="form-grupo">
-        <label>Título</label>
-        <input type="text" formControlName="titulo" placeholder="Ej: Naruto Vol. 1" />
-        <span class="error" *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched">
-          El título es requerido (mínimo 2 caracteres)
+        <label>Nombre</label>
+        <input type="text" formControlName="nombre" placeholder="Ej: Naruto Vol. 1" />
+        <span class="error" *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+          El nombre es requerido (mínimo 2 caracteres)
         </span>
       </div>
 
       <div class="form-grupo">
-        <label>Disponible</label>
-        <input type="number" formControlName="disponible" placeholder="Ej: 10" />
-        <span class="error" *ngIf="form.get('disponible')?.invalid && form.get('disponible')?.touched">
-          El número de tomos disponibles es requerido (mínimo 0)
+        <label>Editorial</label>
+        <input type="text" formControlName="editorial" placeholder="Ej: Shogakukan" />
+        <span class="error" *ngIf="form.get('editorial')?.invalid && form.get('editorial')?.touched">
+          La editorial es requerida (mínimo 2 caracteres)
         </span>
       </div>
 
@@ -50,17 +48,17 @@
       </div>
 
       <div class="form-grupo">
-        <label>Volumen</label>
-        <input type="number" formControlName="volumen" placeholder="Ej: 1" />
-        <span class="error" *ngIf="form.get('volumen')?.invalid && form.get('volumen')?.touched">
-          El volumen debe ser mayor a 0
+        <label>Tomo</label>
+        <input type="number" formControlName="tomo" placeholder="Ej: 1" />
+        <span class="error" *ngIf="form.get('tomo')?.invalid && form.get('tomo')?.touched">
+          El tomo debe ser mayor a 0
         </span>
       </div>
 
       <div class="form-grupo">
-        <label>Género</label>
-        <select formControlName="genero">
-          <option value="" disabled>Selecciona un género</option>
+        <label>Categoría</label>
+        <select formControlName="categoria">
+          <option value="" disabled>Selecciona una categoría</option>
           <option value="Shonen">Shonen</option>
           <option value="Shojo">Shojo</option>
           <option value="Seinen">Seinen</option>
@@ -68,8 +66,8 @@
           <option value="Thriller">Thriller</option>
           <option value="Fantasy">Fantasy</option>
         </select>
-        <span class="error" *ngIf="form.get('genero')?.invalid && form.get('genero')?.touched">
-          Selecciona un género
+        <span class="error" *ngIf="form.get('categoria')?.invalid && form.get('categoria')?.touched">
+          Selecciona una categoría
         </span>
       </div>
 
@@ -90,12 +88,11 @@
           <div class="imagen-placeholder" *ngIf="!imagenPreview">
             Sin imagen seleccionada
           </div>
-          <label class="btn-imagen" for="imagenInput">
-            Seleccionar imagen
-          </label>
+          <label class="btn-imagen" for="imagenInput">Seleccionar imagen</label>
           <input
             type="file"
             id="imagenInput"
+            #imagenInput
             accept="image/*"
             (change)="onImagenSeleccionada($event)"
             style="display:none"
@@ -106,7 +103,7 @@
     </div>
 
     <div class="form-enviado" *ngIf="productoAgregado">
-      ¡Manga agregado correctamente al catálogo!
+      ¡Manga agregado correctamente al catalogo!
     </div>
 
     <button type="submit" class="btn-enviar" [disabled]="form.invalid">
@@ -114,5 +111,4 @@
     </button>
 
   </form>
-
 </div>

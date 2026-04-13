@@ -38,7 +38,7 @@ export class ProductoService {
     );
   }
 
-  agregarProducto(producto: Omit<Producto, 'id'>): Observable<Producto> {
-    return this.http.post<Producto>(this.apiUrl, producto);
+  agregarProducto(data: FormData) {
+    return this.http.post(this.apiUrl, data);
   }
 }
