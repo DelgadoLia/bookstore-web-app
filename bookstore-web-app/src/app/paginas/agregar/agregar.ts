@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductoService } from '../../core/services/producto';
@@ -8,7 +7,7 @@ import { Producto } from '../../core/models/producto.model';
 @Component({
   selector: 'app-agregar',
   standalone: true,
-  imports: [RouterLink, CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './agregar.html',
   styleUrl: './agregar.scss'
 })
