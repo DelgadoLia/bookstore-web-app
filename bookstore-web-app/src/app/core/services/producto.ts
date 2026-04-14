@@ -13,17 +13,23 @@ export class ProductoService {
   private cache: Producto[] = [];
 
   getProductos(): Observable<Producto[]> {
-    if (this.cache.length > 0) {
-      return of(this.cache);
-    }
-    return this.http.get<Producto[]>(this.apiUrl).pipe(
-      map(productos => productos.map(p => ({
-        ...p,
-        imagen: `${this.uploadsUrl}/${p.imagen}`
-      }))),
-      tap(productos => this.cache = productos)
-    );
+  console.log('getProductos llamado - caché:', this.cache.length);
+  if (this.cache.length > 0) {
+    console.log('Devolviendo caché');
+    return of(this.cache);
   }
+  console.log('Haciendo petición HTTP');
+  return this.http.get<Producto[]>(this.apiUrl).pipe(
+    map(productos => productos.map(p => ({
+      ...p,
+      imagen: `${this.uploadsUrl}/${p.imagen}`
+    }))),
+    tap(productos => {
+      console.log('Guardando en caché:', productos.length);
+      this.cache = productos;
+    })
+  );
+}
 
   getProductoById(id: number): Observable<Producto> {
     const local = this.cache.find(p => p.id === id);

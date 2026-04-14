@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../core/services/producto';
@@ -13,14 +13,15 @@ import { Producto } from '../../core/models/producto.model';
 })
 export class Catalogo implements OnInit {
   private productoService = inject(ProductoService);
-  carritoService = inject(CarritoService);
+  private carritoService = inject(CarritoService);
+  private cdr = inject(ChangeDetectorRef);
 
   productos: Producto[] = [];
   productosFiltrados: Producto[] = [];
   generos: string[] = [];
   generoSeleccionado: string = 'Todos';
   agregadoId: number | null = null;
-  cargando = true;
+  cargando = false;
   error = false;
 
   ngOnInit() {
@@ -30,22 +31,23 @@ export class Catalogo implements OnInit {
         this.productosFiltrados = data;
         this.generos = ['Todos', ...new Set(data.map(p => p.categoria))];
         this.cargando = false;
+        this.cdr.detectChanges(); // ← esto fuerza la actualización de la UI
       },
       error: (err) => {
-        console.error('Error al cargar productos:', err);
+        console.error('Error:', err);
         this.error = true;
         this.cargando = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
   filtrarPorGenero(genero: string) {
     this.generoSeleccionado = genero;
-    if (genero === 'Todos') {
-      this.productosFiltrados = this.productos;
-    } else {
-      this.productosFiltrados = this.productos.filter(p => p.categoria === genero);
-    }
+    this.productosFiltrados = genero === 'Todos'
+      ? this.productos
+      : this.productos.filter(p => p.categoria === genero);
+    this.cdr.detectChanges();
   }
 
   agregarAlCarrito(producto: Producto) {
