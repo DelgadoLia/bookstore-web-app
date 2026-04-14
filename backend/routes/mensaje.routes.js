@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const validarMensaje = require('../middleware/validarMensaje');
 
 //get - obtener comentarios
 router.get('/', async (req, res) => {
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 //crear mensaje
-router.post('/', async (req, res) => {
+router.post('/', validarMensaje, async (req, res) => {
   try {
     const {nombre, correo, asunto, mensaje} = req.body;
     const [result] = await db.query(

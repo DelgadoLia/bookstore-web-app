@@ -106,6 +106,10 @@
       ¡Manga agregado correctamente al catalogo!
     </div>
 
+    <div class="form-error" *ngIf="errorServidor as error">
+  {{ error }}
+</div>
+
     <button type="submit" class="btn-enviar" [disabled]="form.invalid">
       {{ form.invalid ? 'Completa todos los campos' : 'Agregar manga' }}
     </button>
