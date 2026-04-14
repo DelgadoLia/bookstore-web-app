@@ -1,1 +1,58 @@
-<p>detalles-producto works!</p>
+<div class="detalle" *ngIf="producto; else noEncontrado">
+
+  <a routerLink="/" class="btn-volver">← Volver al inicio</a>
+
+  <div class="detalle-contenido">
+
+    <div class="detalle-imagen">
+      <img
+        [src]="producto.imagen"
+        [alt]="producto.nombre"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+      />
+      <div class="imagen-fallback">IMG</div>
+    </div>
+
+    <div class="detalle-info">
+      <span class="genero" [ngClass]="'genero-' + producto.categoria.toLowerCase()">
+        {{ producto.categoria }}
+      </span>
+
+      <h1>{{ producto.nombre }}</h1>
+      <p class="autor">{{ producto.editorial }}</p>
+      <p class="volumen">Volumen {{ producto.tomo }}</p>
+      <p class="descripcion">{{ producto.descripcion }}</p>
+
+      <div class="detalle-stock">
+        <span [ngClass]="producto.stock > 0 ? 'en-stock' : 'sin-stock'">
+          {{ producto.stock > 0 ? 'En stock: ' + producto.stock : 'Sin stock' }}
+        </span>
+        <span [ngClass]="producto.disponible > 0 ? 'en-disponible' : 'sin-disponible'">
+          {{ producto.disponible > 0 ? 'Disponible' : 'Sin disponible' }}
+        </span>
+      </div>
+
+      <div class="detalle-precio">
+        {{ producto.precio | currency:'MXN':'symbol':'1.0-0' }}
+      </div>
+
+      <button
+        class="btn-agregar"
+        (click)="agregarAlCarrito()"
+        [disabled]="producto.disponible === 0"
+        [ngClass]="{'agregado': agregado}">
+        {{ agregado ? 'Agregado al carrito' : 'Agregar al carrito' }}
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<ng-template #noEncontrado>
+  <div class="no-encontrado">
+    <p>ups</p>
+    <p>Producto no encontrado</p>
+    <a routerLink="/" class="btn-volver">← Volver al inicio</a>
+  </div>
+</ng-template>
