@@ -4,6 +4,8 @@
     <p>{{ productosFiltrados.length }} títulos disponibles</p>
   </div>
 
+
+
   <div class="catalogo-contenido">
     <aside class="sidebar">
       <h3>Categorías</h3>
@@ -18,11 +20,11 @@
       </ul>
     </aside>
 
-    <!-- Estado de carga -->
     <div *ngIf="cargando" class="estado-msg">Cargando productos...</div>
     <div *ngIf="error" class="estado-msg error">Error al cargar productos.</div>
 
-    <div class="manga-grid" *ngIf="!cargando && !error">
+    <ng-container *ngIf="!cargando && !error && productosFiltrados.length > 0">
+    <div class="manga-grid">
       <div class="manga-card" *ngFor="let producto of productosFiltrados">
         <div class="card-cover">
           <img
@@ -52,6 +54,8 @@
         </div>
       </div>
     </div>
+    </ng-container>
 
   </div>
 </div>
+
