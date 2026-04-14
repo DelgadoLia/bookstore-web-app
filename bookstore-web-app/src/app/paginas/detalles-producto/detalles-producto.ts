@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../core/services/producto';
 import { CarritoService } from '../../core/services/carrito';
@@ -8,7 +8,7 @@ import { Producto } from '../../core/models/producto.model';
 @Component({
   selector: 'app-detalles-producto',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [CommonModule],
   templateUrl: './detalles-producto.html',
   styleUrl: './detalles-producto.scss'
 })
