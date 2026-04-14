@@ -6,17 +6,6 @@
   margin: 0 auto;
 }
 
-.btn-volver {
-  display: inline-block;
-  color: rgb(90,200,255);
-  text-decoration: none;
-  margin-bottom: 2rem;
-  font-size: 0.95rem;
-  transition: opacity 0.2s;
-
-  &:hover { opacity: 0.7; }
-}
-
 .detalle-contenido {
   display: flex;
   gap: 3rem;
