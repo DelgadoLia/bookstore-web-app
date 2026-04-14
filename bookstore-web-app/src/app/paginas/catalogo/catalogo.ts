@@ -1,19 +1,24 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
 import { ProductoService } from '../../core/services/producto';
 import { CarritoService } from '../../core/services/carrito';
 import { Producto } from '../../core/models/producto.model';
 
 @Component({
   selector: 'app-catalogo',
+  standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './catalogo.html',
   styleUrl: './catalogo.scss',
 })
 export class Catalogo implements OnInit {
+
   private productoService = inject(ProductoService);
   private carritoService = inject(CarritoService);
+  private http = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
 
   productos: Producto[] = [];
@@ -21,25 +26,80 @@ export class Catalogo implements OnInit {
   generos: string[] = [];
   generoSeleccionado: string = 'Todos';
   agregadoId: number | null = null;
-  cargando = false;
+  cargando = true;
   error = false;
 
   ngOnInit() {
+    this.cargarProductosLocales();
+    this.cargarPopulares();
+    this.cargarHunter();
+  }
+
+  cargarProductosLocales() {
     this.productoService.getProductos().subscribe({
       next: (data) => {
-        this.productos = data;
-        this.productosFiltrados = data;
-        this.generos = ['Todos', ...new Set(data.map(p => p.categoria))];
-        this.cargando = false;
-        this.cdr.detectChanges(); // ← esto fuerza la actualización de la UI
+        this.productos = [...this.productos, ...data];
+        this.actualizarVista();
       },
-      error: (err) => {
-        console.error('Error:', err);
+      error: () => {
         this.error = true;
         this.cargando = false;
         this.cdr.detectChanges();
       }
     });
+  }
+
+  cargarPopulares() {
+    this.http.get<any>('https://api.mangadex.org/manga?limit=10&order[followedCount]=desc&includes[]=cover_art')
+      .subscribe(res => {
+        const populares = this.transformarMangas(res.data, 2000);
+        this.productos = [...this.productos, ...populares];
+        this.actualizarVista();
+      });
+  }
+
+  cargarHunter() {
+    this.http.get<any>('https://api.mangadex.org/manga?title=hunter&limit=5&includes[]=cover_art')
+      .subscribe(res => {
+        const hunter = this.transformarMangas(res.data, 3000);
+        this.productos = [...this.productos, ...hunter];
+        this.actualizarVista();
+      });
+  }
+
+  transformarMangas(data: any[], baseId: number): Producto[] {
+    return data.map((m: any, index: number) => {
+
+      const titulo = m.attributes.title.en || Object.values(m.attributes.title)[0];
+
+      const cover = m.relationships.find((r: any) => r.type === 'cover_art');
+
+      let imagen = 'https://placehold.co/300x400?text=Manga';
+
+      if (cover) {
+        imagen = `https://uploads.mangadex.org/covers/${m.id}/${cover.attributes.fileName}.256.jpg`;
+      }
+
+      return {
+        id: baseId + index,
+        nombre: titulo,
+        categoria: 'Manga',
+        editorial: 'MangaDex',
+        tomo: Math.floor(Math.random() * 20) + 1,
+        precio: Math.floor(Math.random() * 200) + 50,
+        disponible: 1,
+        imagen: imagen,
+        stock: 10,
+        descripcion: m.attributes.description?.en || 'Manga disponible'
+      };
+    });
+  }
+
+  actualizarVista() {
+    this.productosFiltrados = this.productos;
+    this.generos = ['Todos', ...new Set(this.productos.map(p => p.categoria))];
+    this.cargando = false;
+    this.cdr.detectChanges();
   }
 
   filtrarPorGenero(genero: string) {
