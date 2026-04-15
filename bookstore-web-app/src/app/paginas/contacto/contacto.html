@@ -98,7 +98,11 @@
         ¡Mensaje enviado correctamente! Te contactaremos pronto.
     </div>
 
-    <button type="submit" class="btn-enviar" [disabled]="contactoForm.invalid || enviando">
+    <div class="form-error" *ngIf="errorServidor">
+    {{ errorServidor }}
+    </div>
+
+    <button type="submit" class="btn-enviar" [disabled]="enviando">
         {{ enviando ? 'Enviando...' : 'Enviar mensaje' }}
     </button>
 

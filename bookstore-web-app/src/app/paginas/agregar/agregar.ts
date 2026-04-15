@@ -19,6 +19,7 @@ export class Agregar {
   imagenPreview: string | null = null;
   imagenFile: File | null = null;
   productoAgregado = false;
+  errorServidor: string | null = null;
 
   form: FormGroup = this.fb.group({
     nombre:      ['', [Validators.required, Validators.minLength(2)]],
@@ -47,6 +48,7 @@ export class Agregar {
 
   onSubmit() {
     if (this.form.invalid) return;
+    this.errorServidor = null; 
 
     const formData = new FormData();
     formData.append('nombre',      this.form.value.nombre);
@@ -71,8 +73,8 @@ export class Agregar {
         this.form.reset();
         setTimeout(() => this.productoAgregado = false, 3000);
       },
-      error: () => {
-        this.productoAgregado = false;
+      error: (err) => {
+        this.errorServidor = err.error?.error || 'Error al agregar el producto';
       }
     });
   }

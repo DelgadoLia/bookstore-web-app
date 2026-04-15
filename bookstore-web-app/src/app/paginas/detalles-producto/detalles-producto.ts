@@ -21,15 +21,18 @@ export class DetallesProducto implements OnInit {
   agregado = false;
 
   ngOnInit() {
+  const nav = history.state;
+
+  if (nav.producto) {
+    this.producto = nav.producto;
+  } else {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.productoService.getProductoById(id).subscribe({
       next: (data) => this.producto = data,
-      error: (err) => {
-        console.error('Error al cargar producto:', err);
-        this.producto = undefined;
-      }
+      error: () => this.producto = undefined
     });
   }
+}
 
   agregarAlCarrito() {
     if (this.producto) {
@@ -38,4 +41,6 @@ export class DetallesProducto implements OnInit {
       setTimeout(() => this.agregado = false, 2000);
     }
   }
+
+  
 }

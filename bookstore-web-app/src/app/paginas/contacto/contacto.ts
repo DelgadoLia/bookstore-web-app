@@ -23,6 +23,7 @@ export class Contacto implements OnInit {
 
   enviado = false;
   enviando = false;
+  errorServidor: string | null = null;
 
   mensajes: Mensaje[] = [];
   mensajesAleatorios: Mensaje[] = [];
@@ -72,21 +73,29 @@ export class Contacto implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid) return;
+  this.errorServidor = null;
 
-    this.enviando = true;
+  if (form.invalid) return;
 
-    this.mensajeService.enviarMensaje(this.formulario).subscribe({
-      next: () => {
-        this.enviado = true;
-        this.enviando = false;
-        form.resetForm();
-        this.formulario = { nombre: '', correo: '', asunto: '', mensaje: '' };
-      },
-      error: (err) => {
-        console.error(err);
-        this.enviando = false;
-      }
-    });
-  }
+  this.enviando = true;
+
+  this.mensajeService.enviarMensaje(this.formulario).subscribe({
+    next: () => {
+      this.enviado = true;
+      this.enviando = false;
+      form.resetForm();
+      this.formulario = { nombre: '', correo: '', asunto: '', mensaje: '' };
+    },
+    error: (err) => {
+  this.enviando = false;
+
+  console.log(err);
+
+  this.errorServidor =
+    (typeof err.error === 'string' ? err.error : err.error?.error) ||
+    err.message ||
+    'Error al enviar el mensaje';
+}
+  });
+}
 }
