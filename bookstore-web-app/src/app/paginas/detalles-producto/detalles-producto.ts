@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
 import { ProductoService } from '../../core/services/producto';
 import { CarritoService } from '../../core/services/carrito';
 import { Producto } from '../../core/models/producto.model';
@@ -16,23 +16,24 @@ export class DetallesProducto implements OnInit {
   private route = inject(ActivatedRoute);
   private productoService = inject(ProductoService);
   private carritoService = inject(CarritoService);
+  private location = inject(Location);
 
   producto: Producto | undefined;
   agregado = false;
 
   ngOnInit() {
-  const nav = history.state;
+    const nav = history.state;
 
-  if (nav.producto) {
-    this.producto = nav.producto;
-  } else {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productoService.getProductoById(id).subscribe({
-      next: (data) => this.producto = data,
-      error: () => this.producto = undefined
-    });
+    if (nav.producto) {
+      this.producto = nav.producto;
+    } else {
+      const id = Number(this.route.snapshot.paramMap.get('id'));
+      this.productoService.getProductoById(id).subscribe({
+        next: (data) => this.producto = data,
+        error: () => this.producto = undefined
+      });
+    }
   }
-}
 
   agregarAlCarrito() {
     if (this.producto) {
@@ -42,5 +43,7 @@ export class DetallesProducto implements OnInit {
     }
   }
 
-  
+  volver() {
+    this.location.back();
+  }
 }
