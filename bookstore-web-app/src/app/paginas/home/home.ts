@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../core/services/producto';
 import { CarritoService } from '../../core/services/carrito';
 import { Producto } from '../../core/models/producto.model';
+import {ProductoCard} from '../../compartido/producto-card/producto-card';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, ProductoCard],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
