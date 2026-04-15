@@ -12,6 +12,8 @@
         {{ producto.categoria }}</span>
         <h3>{{ producto.nombre }}</h3>
         <p>{{ producto.editorial }} · Vol. {{ producto.tomo }}</p>
+        <p>{{ producto.disponible }} disponibles · {{ producto.stock }} en stock</p>
+        <p>{{ truncateWords(producto.descripcion, 7)}}</p>
         <span class="precio">{{ producto.precio | currency:'MXN':'symbol':'1.0-0' }}</span>
         <div class="card-footer">
             <a [routerLink]="['/detalles', producto.id]" class="btn-small">Ver Más</a>
