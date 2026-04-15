@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require('../db');
 const multer = require('multer');
 const path = require('path');
+const validarProducto = require('../middleware/validarProducto');
+
 
 const storage = multer.diskStorage({
   destination: 'uploads/',
@@ -23,7 +25,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', upload.single('imagen'), async (req, res) => {
+router.post('/', upload.single('imagen'), validarProducto, async (req, res) => {
   console.log('POST recibido');
   console.log('body:', req.body);
   console.log('file:', req.file);
