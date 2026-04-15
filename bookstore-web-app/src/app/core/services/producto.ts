@@ -26,17 +26,24 @@ export class ProductoService {
   }
 
   getProductoById(id: number): Observable<Producto> {
-    const local = this.cache.find(p => p.id === id);
-    if (local) {
-      return of(local);
-    }
-    return this.http.get<Producto>(`${this.apiUrl}/${id}`).pipe(
-      map(p => ({
-        ...p,
-        imagen: `${this.uploadsUrl}/${p.imagen}`
-      }))
-    );
+  const local = this.cache.find(p => p.id === id);
+
+  if (local) {
+    return of(local);
   }
+
+  return this.http.get<Producto>(`${this.apiUrl}/${id}`).pipe(
+    map(p => ({
+      ...p,
+      imagen: `${this.uploadsUrl}/${p.imagen}`
+    })),
+    tap(p => {
+      if (!this.cache.find(x => x.id === p.id)) {
+        this.cache.push(p);
+      }
+    })
+  );
+}
 
   agregarProducto(data: FormData) {
     return this.http.post(this.apiUrl, data);
