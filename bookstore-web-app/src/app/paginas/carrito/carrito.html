@@ -3,6 +3,11 @@
         <h1>Mi carrito</h1>
         <a routerLink="/" class="btn-volver">← Seguir comprando</a>
     </div>
+
+    <div class="compra-exitosa" *ngIf="compraExitosa">
+        Compra realizada con éxito
+    </div>
+
     <div class="carrrito-contenido" *ngIf="carritoService.items().length>0; else vacio">
         <div class="carrito-lista">
             <div class="carrito-item" *ngFor="let item of carritoService.items()">
@@ -41,10 +46,18 @@
                 <span><strong>Total</strong></span>
                 <span><strong>{{ carritoService.total() | currency:'MXN':'symbol':'1.0-0' }}</strong></span>
             </div>
-            <button class="btn-pagar">Pagar</button>
+            
+            <button 
+                type="button" 
+                class="btn-pagar" 
+                (click)="compraExitosa = true; carritoService.limpiar()">Pagar
+            </button>
+
             <button class="btn-limpiar" (click)="carritoService.limpiar()">Vaciar carrito</button>
+            
         </div>
     </div>
+
     <ng-template #vacio>
         <div class="carrito-vacio">
             <p>Tu carrito está vacío</p>

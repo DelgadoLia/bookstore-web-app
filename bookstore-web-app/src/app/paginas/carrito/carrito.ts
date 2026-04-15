@@ -11,4 +11,5 @@ import { CarritoService } from '../../core/services/carrito';
 })
 export class Carrito {
   carritoService = inject(CarritoService);
+  compraExitosa = false;
 }

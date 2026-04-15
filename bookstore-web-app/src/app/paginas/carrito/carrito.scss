@@ -178,6 +178,15 @@
   &:hover { background: rgb(60,170,230); }
 }
 
+.compra-exitosa {
+  background: rgba(90,200,100,0.15);
+  border: 1px solid rgba(90,200,100,0.3);
+  color: rgb(90,200,100);
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
 .btn-limpiar {
   width: 100%;
   background: rgba(255,100,100,0.15);
