@@ -7,7 +7,7 @@ import { Mensaje } from '../models/mensaje.model';
 @Injectable({ providedIn: 'root' })
 export class MensajeService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/mensajes';
+  private apiUrl = 'https://backend-bookstore-yzkx.onrender.com/api/mensajes';
 
   private cache: Mensaje[] = [];
 

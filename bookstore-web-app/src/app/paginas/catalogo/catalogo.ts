@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProductoService } from '../../core/services/producto';
 import { CarritoService } from '../../core/services/carrito';
 import { Producto } from '../../core/models/producto.model';
-import {ProductoCard} from '../../compartido/producto-card/producto-card';
+import { ProductoCard } from '../../compartido/producto-card/producto-card';
 
 @Component({
   selector: 'app-catalogo',
@@ -23,10 +23,11 @@ export class Catalogo implements OnInit {
   productos: Producto[] = [];
   productosFiltrados: Producto[] = [];
   generos: string[] = [];
-  generoSeleccionado: string = 'Todos';
+  generoSeleccionado = 'Todos';
   agregadoId: number | null = null;
   cargando = true;
   error = false;
+  cargasPendientes = 3;
 
   ngOnInit() {
     this.cargarProductosLocales();
@@ -38,37 +39,41 @@ export class Catalogo implements OnInit {
     this.productoService.getProductos().subscribe({
       next: (data) => {
         this.productos = [...this.productos, ...data];
-        this.actualizarVista();
+        this.finalizarCarga();
       },
       error: () => {
         this.error = true;
-        this.cargando = false;
-        this.cdr.detectChanges();
+        this.finalizarCarga();
       }
     });
   }
 
   cargarPopulares() {
-    this.http.get<any>('https://api.mangadex.org/manga?limit=10&order[followedCount]=desc&includes[]=cover_art')
-      .subscribe(res => {
-        const populares = this.transformarMangas(res.data, 2000);
-        this.productos = [...this.productos, ...populares];
-        this.actualizarVista();
+    this.http.get<any>('https://backend-bookstore-yzkx.onrender.com/api/manga')
+      .subscribe({
+        next: (res) => {
+          const populares = this.transformarMangas(res.data, 2000);
+          this.productos = [...this.productos, ...populares];
+          this.finalizarCarga();
+        },
+        error: () => this.finalizarCarga()
       });
   }
 
   cargarHunter() {
-    this.http.get<any>('https://api.mangadex.org/manga?title=hunter&limit=5&includes[]=cover_art')
-      .subscribe(res => {
-        const hunter = this.transformarMangas(res.data, 3000);
-        this.productos = [...this.productos, ...hunter];
-        this.actualizarVista();
+    this.http.get<any>('https://backend-bookstore-yzkx.onrender.com/api/manga?title=hunter')
+      .subscribe({
+        next: (res) => {
+          const hunter = this.transformarMangas(res.data, 3000);
+          this.productos = [...this.productos, ...hunter];
+          this.finalizarCarga();
+        },
+        error: () => this.finalizarCarga()
       });
   }
 
   transformarMangas(data: any[], baseId: number): Producto[] {
     return data.map((m: any, index: number) => {
-
       const titulo = m.attributes.title.en || Object.values(m.attributes.title)[0];
 
       const cover = m.relationships.find((r: any) => r.type === 'cover_art');
@@ -87,11 +92,18 @@ export class Catalogo implements OnInit {
         tomo: Math.floor(Math.random() * 20) + 1,
         precio: Math.floor(Math.random() * 200) + 50,
         disponible: 1,
-        imagen: imagen,
+        imagen,
         stock: 10,
         descripcion: m.attributes.description?.en || 'Manga disponible'
       };
     });
+  }
+
+  finalizarCarga() {
+    this.cargasPendientes--;
+    if (this.cargasPendientes === 0) {
+      this.actualizarVista();
+    }
   }
 
   actualizarVista() {
