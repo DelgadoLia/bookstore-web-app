@@ -6,7 +6,12 @@ require('dotenv').config();
 const app=express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({origin:'http://localhost:4200'}));
+app.use(cors({
+  origin: [
+    'http://localhost:4200',
+    'https://DelgadoLia.github.io'
+  ]
+}));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 

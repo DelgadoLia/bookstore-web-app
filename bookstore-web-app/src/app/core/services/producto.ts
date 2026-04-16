@@ -7,8 +7,8 @@ import { Producto } from '../models/producto.model';
 @Injectable({ providedIn: 'root' })
 export class ProductoService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/productos';
-  private uploadsUrl = 'http://localhost:3000/uploads';
+  private apiUrl = 'https://backend-bookstore-yzkx.onrender.com/api/productos';
+  private uploadsUrl = 'https://backend-bookstore-yzkx.onrender.com/uploads';
 
   private cache: Producto[] = [];
 
