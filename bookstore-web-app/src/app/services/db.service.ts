@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class ProductosService{
-    private apiUrl='http://localhost:3000/api/mangas'
+    private apiUrl='https://backend-bookstore-yzkx.onrender.com/api/mangas'
     constructor(private http: HttpClient){}
 
     getAll(): Observable<any[]>{
