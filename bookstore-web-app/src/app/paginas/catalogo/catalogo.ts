@@ -71,31 +71,32 @@ export class Catalogo implements OnInit {
   }
 
   transformarMangas(data: any[], baseId: number): Producto[] {
-    return data.map((m: any, index: number) => {
-      const titulo = m.attributes.title.en || Object.values(m.attributes.title)[0];
+  return data.map((m: any, index: number) => {
+    const titulo = m.attributes.title.en || Object.values(m.attributes.title)[0];
+    const cover = m.relationships?.find((r: any) => r.type === 'cover_art');
 
-      const cover = m.relationships?.find((r: any) => r.type === 'cover_art');
+    let imagen = 'https://placehold.co/300x400?text=Manga';
 
-      let imagen = 'https://placehold.co/300x400?text=Manga';
+    if (cover?.attributes?.fileName) {
+      const coverUrl = `https://uploads.mangadex.org/covers/${m.id}/${cover.attributes.fileName}.256.jpg`;
+      // Proxy por tu backend para evitar el bloqueo de MangaDex
+      imagen = `https://backend-bookstore-yzkx.onrender.com/api/manga/cover?url=${encodeURIComponent(coverUrl)}`;
+    }
 
-      if (cover?.attributes?.fileName) {
-        imagen = `https://uploads.mangadex.org/covers/${m.id}/${cover.attributes.fileName}.256.jpg`;
-      }
-
-      return {
-        id: baseId + index,
-        nombre: titulo,
-        categoria: 'Manga',
-        editorial: 'MangaDex',
-        tomo: Math.floor(Math.random() * 20) + 1,
-        precio: Math.floor(Math.random() * 200) + 50,
-        disponible: 1,
-        imagen,
-        stock: 10,
-        descripcion: m.attributes.description?.en || 'Manga disponible'
-      };
-    });
-  }
+    return {
+      id: baseId + index,
+      nombre: titulo,
+      categoria: 'Manga',
+      editorial: 'MangaDex',
+      tomo: Math.floor(Math.random() * 20) + 1,
+      precio: Math.floor(Math.random() * 200) + 50,
+      disponible: 1,
+      imagen,
+      stock: 10,
+      descripcion: m.attributes.description?.en || 'Manga disponible'
+    };
+  });
+}
 
   finalizarCarga() {
     this.cargasPendientes--;
