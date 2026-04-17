@@ -79,8 +79,9 @@ export class Catalogo implements OnInit {
     let imagen = 'https://placehold.co/300x400?text=Manga';
 
     if (cover?.attributes?.fileName) {
-      const coverUrl = `https://uploads.mangadex.org/covers/${m.id}/${cover.attributes.fileName}.256.jpg`;
-      imagen = `https://backend-bookstore-yzkx.onrender.com/imagen?url=${encodeURIComponent(coverUrl)}`;
+      if (cover?.attributes?.fileName) {
+      imagen = `https://uploads.mangadex.org/covers/${m.id}/${cover.attributes.fileName}.512.jpg`;
+}
     }
 
     return {
