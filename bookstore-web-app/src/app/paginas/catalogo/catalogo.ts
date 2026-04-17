@@ -79,7 +79,6 @@ export class Catalogo implements OnInit {
 
     if (cover?.attributes?.fileName) {
       const coverUrl = `https://uploads.mangadex.org/covers/${m.id}/${cover.attributes.fileName}.256.jpg`;
-      // Proxy por tu backend para evitar el bloqueo de MangaDex
       imagen = `https://backend-bookstore-yzkx.onrender.com/api/manga/cover?url=${encodeURIComponent(coverUrl)}`;
     }
 
