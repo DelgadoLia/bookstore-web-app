@@ -41,21 +41,25 @@ app.get('/api/manga', async (req, res) => {
 });
 
 
+const axios = require('axios');
+
 app.get('/imagen', async (req, res) => {
   try {
     const { url } = req.query;
-    const response = await fetch(decodeURIComponent(url), {
+
+    const response = await axios.get(url, {
+      responseType: 'arraybuffer',
       headers: {
-        'Referer': 'https://mangadex.org',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36'
+        'Referer': 'https://mangadex.org/',
+        'User-Agent': 'Mozilla/5.0'
       }
     });
-    const buffer = await response.arrayBuffer();
-    const contentType = response.headers.get('content-type') || 'image/jpeg';
-    res.set('Content-Type', contentType);
-    res.set('Cache-Control', 'public, max-age=86400');
-    res.send(Buffer.from(buffer));
+
+    res.set('Content-Type', response.headers['content-type'] || 'image/jpeg');
+    res.send(response.data);
+
   } catch (error) {
+    console.error(error.message);
     res.status(500).json({ error: 'Error al obtener imagen' });
   }
 });
