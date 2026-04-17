@@ -29,7 +29,7 @@ app.get('/api/manga', async (req, res) => {
 
     if (limit) url += `&limit=${limit}`;
     if (title) url += `&title=${title}`;
-    
+
 
     const response = await fetch(url);
     const data = await response.json();
@@ -39,6 +39,7 @@ app.get('/api/manga', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener mangas' });
   }
 });
+
 
 app.get('/', (req, res) => {
     res.json({mensaje: 'Servidor funcionando'});
