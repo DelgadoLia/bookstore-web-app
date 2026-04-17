@@ -12,10 +12,14 @@ export class MangaService {
   constructor(private http: HttpClient) {}
 
   getMangas(limit: number = 10): Observable<any> {
-    return this.http.get(`${this.apiUrl}?limit=${limit}`);
+    return this.http.get(
+      `${this.apiUrl}?limit=${limit}&includes[]=cover_art&order[followedCount]=desc`
+    );
   }
 
   searchManga(title: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}?title=${title}`);
+    return this.http.get(
+      `${this.apiUrl}?title=${title}&includes[]=cover_art&order[followedCount]=desc`
+    );
   }
 }

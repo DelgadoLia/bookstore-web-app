@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: [
     'http://localhost:4200',
-    'https://DelgadoLia.github.io'
+    'https://delgadolia.github.io'
   ]
 }));
 app.use(express.json());

@@ -26,13 +26,15 @@ export class DetallesProducto implements OnInit {
 
     if (nav.producto) {
       this.producto = nav.producto;
-    } else {
-      const id = Number(this.route.snapshot.paramMap.get('id'));
-      this.productoService.getProductoById(id).subscribe({
-        next: (data) => this.producto = data,
-        error: () => this.producto = undefined
-      });
+      return;
     }
+
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.productoService.getProductoById(id).subscribe({
+      next: (data) => this.producto = data,
+      error: () => this.producto = undefined
+    });
   }
 
   agregarAlCarrito() {
