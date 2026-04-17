@@ -25,10 +25,11 @@ app.get('/api/manga', async (req, res) => {
     const { title, limit } = req.query;
 
     let url = `https://api.mangadex.org/manga?includes[]=cover_art&order[followedCount]=desc`;
-    
+
 
     if (limit) url += `&limit=${limit}`;
     if (title) url += `&title=${title}`;
+    
 
     const response = await fetch(url);
     const data = await response.json();
