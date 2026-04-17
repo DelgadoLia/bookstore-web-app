@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MangaService {
 
-  private apiUrl = 'https://api.mangadex.org/manga';
+  private apiUrl = 'https://backend-bookstore-yzkx.onrender.com/api/manga';
 
   constructor(private http: HttpClient) {}
 
