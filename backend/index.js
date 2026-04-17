@@ -41,7 +41,7 @@ app.get('/api/manga', async (req, res) => {
 });
 
 
-app.get('/api/cover', async (req, res) => {
+app.get('/imagen', async (req, res) => {
   try {
     const { url } = req.query;
     const response = await fetch(decodeURIComponent(url), {

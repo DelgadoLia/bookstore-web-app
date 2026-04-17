@@ -80,7 +80,7 @@ export class Catalogo implements OnInit {
 
     if (cover?.attributes?.fileName) {
       const coverUrl = `https://uploads.mangadex.org/covers/${m.id}/${cover.attributes.fileName}.256.jpg`;
-      imagen = `https://backend-bookstore-yzkx.onrender.com/api/cover?url=${encodeURIComponent(coverUrl)}`;
+      imagen = `https://backend-bookstore-yzkx.onrender.com/imagen?url=${encodeURIComponent(coverUrl)}`;
     }
 
     return {
