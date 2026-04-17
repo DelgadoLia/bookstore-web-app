@@ -70,6 +70,7 @@ export class Catalogo implements OnInit {
     });
   }
 
+  
   transformarMangas(data: any[], baseId: number): Producto[] {
   return data.map((m: any, index: number) => {
     const titulo = m.attributes.title.en || Object.values(m.attributes.title)[0];
