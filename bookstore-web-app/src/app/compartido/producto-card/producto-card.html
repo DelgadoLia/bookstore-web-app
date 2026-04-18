@@ -1,10 +1,11 @@
 <div class="manga-card">
     <div class="card-cover">
         <img
-    [src]="producto.imagen"
-    [alt]="producto.nombre"
-    referrerpolicy="no-referrer"
-/>
+            [src]="producto.imagen"
+            [alt]="producto.nombre"
+            referrerpolicy="no-referrer"
+            onerror="console.log('Error imagen:', this.src)"
+        />
         <div class="card-imagen"></div>
     </div>
     <div class="card-info">
